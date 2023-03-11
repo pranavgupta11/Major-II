@@ -125,6 +125,7 @@ contract product {
         uint256 _productPrice
     ) public {
         require(msg.sender == viewOwner(), "Wrong Account selected");
+        require(productMap[_productSN] <= 0, "Serial number already exists");
         productItems[productCount] = productItem(
             productCount,
             _productSN,
