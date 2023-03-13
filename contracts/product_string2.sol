@@ -5,6 +5,7 @@ contract product {
     uint256 sellerCount;
     uint256 productCount;
     address owner;
+
     constructor(){
         owner = msg.sender;
     }
@@ -22,7 +23,7 @@ contract product {
 
     struct productItem {
         uint256 productId; //Automated
-        string productSN;
+        string productSN; 
         string productName;
         string productBrand;
         uint256 productPrice;
@@ -30,7 +31,7 @@ contract product {
     }
 
     mapping(uint256 => productItem) public productItems; //product id  -> details
-    mapping(string => uint256) public productMap; //productSno -> count(id)
+    mapping(string => uint256) public productMap; //productSno -> count(id)(Automated)
     mapping(string => string) public productsManufactured; //product Sn -> mfr
     mapping(string => string) public productsForSale; //productSn -> Seller Code
     mapping(string => string) public productsSold; //productSn-> Consumer Code
@@ -175,6 +176,7 @@ contract product {
         string memory _productSN,
         string memory _sellerCode
     ) public {
+        require(msg.sender == viewOwner(), "Wrong Account selected");
         productsWithSeller[_sellerCode].push(_productSN);
         productsForSale[_productSN] = _sellerCode;
     }
@@ -184,10 +186,6 @@ contract product {
         string memory _consumerCode,
         string memory _sellerCode
     ) public {
-        require(
-            sellerCount > 2,
-            "Atleast 2 sellers must be present in the ecosystem"
-        );
         string memory pStatus;
         uint256 i;
         uint256 a;
@@ -324,6 +322,7 @@ contract product {
 
     //Verify
     event printVerify(string _productSN,string message, string _consumerCode);
+    
     function verifyProduct(
         string memory _productSN,
         string memory _consumerCode
