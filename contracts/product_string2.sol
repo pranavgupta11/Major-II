@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.12;
 
-contract product {
+contract productString {
     uint256 sellerCount;
     uint256 productCount;
     address owner;

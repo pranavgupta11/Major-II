@@ -1,66 +1,62 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
-contract product {
+contract productSecure {
 
     uint256 sellerCount;
     uint256 productCount;
+    
 
     struct seller{
         uint256 sellerId; // automated
-        string sellerName;
-        string sellerBrand;
-        string sellerCode; // Password (GST(5)+Phone(4))
+        bytes32 sellerName;
+        bytes32 sellerBrand;
+        bytes32 sellerCode; // Password (GST(5)+Phone(4))
         uint256 sellerNum;
-        address sellerManager;
-        address sellerAddress;
+        bytes32 sellerManager;
+        bytes32 sellerAddress;
     }
     mapping(uint=>seller) public sellers; // 0 -> sellers details
 
     struct productItem{
-        uint256 productId;//Automated
-        string productSN;
-        string productName;
-        string productBrand;
+        uint256 productId;
+        bytes32 productSN;
+        bytes32 productName;
+        bytes32 productBrand;
         uint256 productPrice;
-        string productStatus;
+        bytes32 productStatus;
     }
 
     mapping(uint256=>productItem) public productItems; //product id  -> details
-    mapping(string=>uint256) public productMap; //productSno -> count(id)
-    mapping(string=>string) public productsManufactured; //product Sn -> mfr
-    mapping(string=>string) public productsForSale; //productSn -> Seller Code
-    mapping(string=>string) public productsSold; //productSn-> Consumer Code
-    mapping(string=>string[]) public productsWithSeller; //sellerCode -> ProductSno
-    mapping(string=>string[]) public productsWithConsumer; //ConsumerCode -> ProductSn
-    mapping(string=>string[]) public sellersWithManufacturer; //Mfr id -> seller code
+    mapping(bytes32=>uint256) public productMap; //
+    mapping(bytes32=>bytes32) public productsManufactured; //product Sn -> mfr
+    mapping(bytes32=>bytes32) public productsForSale; //productSn -> Seller Code
+    mapping(bytes32=>bytes32) public productsSold; //productSn-> Consumer Code
+    mapping(bytes32=>bytes32[]) public productsWithSeller;
+    mapping(bytes32=>bytes32[]) public productsWithConsumer;
+    mapping(bytes32=>bytes32[]) public sellersWithManufacturer;
 
-    // String Custom Comparator
-    function memcmp(bytes memory a, bytes memory b) internal pure returns(bool){
-        return (a.length == b.length) && (keccak256(a) == keccak256(b));
-    }
-    function strcmp(string memory a, string memory b) internal pure returns(bool){
-        return memcmp(bytes(a), bytes(b));
-    }
+
     //SELLER SECTION
 
-    function addSeller(string memory _manufacturerId, string memory _sellerName, string memory _sellerBrand, string memory _sellerCode,
-    uint256 _sellerNum, address _sellerManager, address _sellerAddress) public{
+    function addSeller(bytes32 _manufacturerId, bytes32 _sellerName, bytes32 _sellerBrand, bytes32 _sellerCode,
+    uint256 _sellerNum, bytes32 _sellerManager, bytes32 _sellerAddress) public{
         sellers[sellerCount] = seller(sellerCount, _sellerName, _sellerBrand, _sellerCode,
         _sellerNum, _sellerManager, _sellerAddress);
         sellerCount++;
+
         sellersWithManufacturer[_manufacturerId].push(_sellerCode);
     }
 
 
-    function viewSellers () public view returns(uint256[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, address[] memory, address[] memory) {
+    function viewSellers () public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory, bytes32[] memory) {
         uint256[] memory ids = new uint256[](sellerCount);
-        string[] memory snames = new string[](sellerCount);
-        string[] memory sbrands = new string[](sellerCount);
-        string[] memory scodes = new string[](sellerCount);
+        bytes32[] memory snames = new bytes32[](sellerCount);
+        bytes32[] memory sbrands = new bytes32[](sellerCount);
+        bytes32[] memory scodes = new bytes32[](sellerCount);
         uint256[] memory snums = new uint256[](sellerCount);
-        address[] memory smanagers = new address[](sellerCount);
-        address[] memory saddress = new address[](sellerCount);
+        bytes32[] memory smanagers = new bytes32[](sellerCount);
+        bytes32[] memory saddress = new bytes32[](sellerCount);
         
         for(uint i=0; i<sellerCount; i++){
             ids[i] = sellers[i].sellerId;
@@ -76,7 +72,7 @@ contract product {
 
     //PRODUCT SECTION
 
-    function addProduct(string memory _manufactuerID, string memory _productName, string memory _productSN, string memory _productBrand,
+    function addProduct(bytes32 _manufactuerID, bytes32 _productName, bytes32 _productSN, bytes32 _productBrand,
     uint256 _productPrice) public{
         productItems[productCount] = productItem(productCount, _productSN, _productName, _productBrand,
         _productPrice, "Available");
@@ -86,13 +82,13 @@ contract product {
     }
 
 
-    function viewProductItems () public view returns(uint256[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, string[] memory) {
+    function viewProductItems () public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory) {
         uint256[] memory pids = new uint256[](productCount);
-        string[] memory pSNs = new string[](productCount);
-        string[] memory pnames = new string[](productCount);
-        string[] memory pbrands = new string[](productCount);
+        bytes32[] memory pSNs = new bytes32[](productCount);
+        bytes32[] memory pnames = new bytes32[](productCount);
+        bytes32[] memory pbrands = new bytes32[](productCount);
         uint256[] memory pprices = new uint256[](productCount);
-        string[] memory pstatus = new string[](productCount);
+        bytes32[] memory pstatus = new bytes32[](productCount);
         
         for(uint i=0; i<productCount; i++){
             pids[i] = productItems[i].productId;
@@ -107,27 +103,27 @@ contract product {
 
     //SELL Product
 
-    function manufacturerSellProduct(string memory _productSN, string memory _sellerCode) public{
+    function manufacturerSellProduct(bytes32 _productSN, bytes32 _sellerCode) public{
         productsWithSeller[_sellerCode].push(_productSN);
         productsForSale[_productSN] = _sellerCode;
 
     }
 
-    function sellerSellProduct(string memory _productSN, string memory _consumerCode) public{   
-        string memory pStatus;
+    function sellerSellProduct(bytes32 _productSN, bytes32 _consumerCode) public{   
+        bytes32 pStatus;
         uint256 i;
         uint256 j=0;
 
         if(productCount>0) {
             for(i=0;i<productCount;i++) {
-                if(strcmp(productItems[i].productSN, _productSN)) {
+                if(productItems[i].productSN == _productSN) {
                     j=i;
                 }
             }
         }
 
         pStatus = productItems[j].productStatus;
-        if(strcmp(pStatus,"Available")) {
+        if(pStatus == "Available") {
             productItems[j].productStatus = "NA";
             productsWithConsumer[_consumerCode].push(_productSN);
             productsSold[_productSN] = _consumerCode;
@@ -137,21 +133,21 @@ contract product {
     }
 
 
-    function queryProductsList(string memory _sellerCode) public view returns(uint256[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, string[] memory){
-        string[] memory productSNs = productsWithSeller[_sellerCode];
+    function queryProductsList(bytes32 _sellerCode) public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory){
+        bytes32[] memory productSNs = productsWithSeller[_sellerCode];
         uint256 k=0;
 
         uint256[] memory pids = new uint256[](productCount);
-        string[] memory pSNs = new string[](productCount);
-        string[] memory pnames = new string[](productCount);
-        string[] memory pbrands = new string[](productCount);
+        bytes32[] memory pSNs = new bytes32[](productCount);
+        bytes32[] memory pnames = new bytes32[](productCount);
+        bytes32[] memory pbrands = new bytes32[](productCount);
         uint256[] memory pprices = new uint256[](productCount);
-        string[] memory pstatus = new string[](productCount);
+        bytes32[] memory pstatus = new bytes32[](productCount);
 
         
         for(uint i=0; i<productCount; i++){
             for(uint j=0; j<productSNs.length; j++){
-                if(strcmp(productItems[i].productSN,productSNs[j])){
+                if(productItems[i].productSN==productSNs[j]){
                     pids[k] = productItems[i].productId;
                     pSNs[k] = productItems[i].productSN;
                     pnames[k] = productItems[i].productName;
@@ -165,20 +161,20 @@ contract product {
         return(pids, pSNs, pnames, pbrands, pprices, pstatus);
     }
 
-    function querySellersList (string memory _manufacturerCode) public view returns(uint256[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, address[] memory, address[] memory) {
-        string[] memory sellerCodes = sellersWithManufacturer[_manufacturerCode];
+    function querySellersList (bytes32 _manufacturerCode) public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory, bytes32[] memory) {
+        bytes32[] memory sellerCodes = sellersWithManufacturer[_manufacturerCode];
         uint256 k=0;
         uint256[] memory ids = new uint256[](sellerCount);
-        string[] memory snames = new string[](sellerCount);
-        string[] memory sbrands = new string[](sellerCount);
-        string[] memory scodes = new string[](sellerCount);
+        bytes32[] memory snames = new bytes32[](sellerCount);
+        bytes32[] memory sbrands = new bytes32[](sellerCount);
+        bytes32[] memory scodes = new bytes32[](sellerCount);
         uint256[] memory snums = new uint256[](sellerCount);
-        address[] memory smanagers = new address[](sellerCount);
-        address[] memory saddress = new address[](sellerCount);
+        bytes32[] memory smanagers = new bytes32[](sellerCount);
+        bytes32[] memory saddress = new bytes32[](sellerCount);
         
         for(uint i=0; i<sellerCount; i++){
             for(uint j=0; j<sellerCodes.length; j++){
-                if(strcmp(sellers[i].sellerCode, sellerCodes[j])){
+                if(sellers[i].sellerCode==sellerCodes[j]){
                     ids[k] = sellers[i].sellerId;
                     snames[k] = sellers[i].sellerName;
                     sbrands[k] = sellers[i].sellerBrand;
@@ -195,10 +191,10 @@ contract product {
         return(ids, snames, sbrands, scodes, snums, smanagers, saddress);
     }
 
-    function getPurchaseHistory(string memory _consumerCode) public view returns (string[] memory, string[] memory, string[] memory){
-        string[] memory productSNs = productsWithConsumer[_consumerCode];
-        string[] memory sellerCodes = new string[](productSNs.length);
-        string[] memory manufacturerCodes = new string[](productSNs.length);
+    function getPurchaseHistory(bytes32 _consumerCode) public view returns (bytes32[] memory, bytes32[] memory, bytes32[] memory){
+        bytes32[] memory productSNs = productsWithConsumer[_consumerCode];
+        bytes32[] memory sellerCodes = new bytes32[](productSNs.length);
+        bytes32[] memory manufacturerCodes = new bytes32[](productSNs.length);
         for(uint i=0; i<productSNs.length; i++){
             sellerCodes[i] = productsForSale[productSNs[i]];
             manufacturerCodes[i] = productsManufactured[productSNs[i]];
@@ -208,8 +204,8 @@ contract product {
 
     //Verify
 
-    function verifyProduct(string memory _productSN, string memory _consumerCode) public view returns(bool){
-        if(strcmp(productsSold[_productSN], _consumerCode)){
+    function verifyProduct(bytes32 _productSN, bytes32 _consumerCode) public view returns(bool){
+        if(productsSold[_productSN] == _consumerCode){
             return true;
         }
         else{
