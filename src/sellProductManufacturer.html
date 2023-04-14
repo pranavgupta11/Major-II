@@ -7,6 +7,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/manufacturer.css">
 
 	</head>
 	<body>
@@ -70,17 +71,11 @@
     <!-- END nav -->
 
 	</section>
-    <section>
-        <div class="container">
-            <h2>Sell Product to Seller</h2>
+    <!-- <section>
+
 
 			<section>
-				<div class="container-fluid">
-					<center>
-						<div id="qr-reader" style="width:300px"></div>
-						<div id="qr-reader-results"></div>
-					</center>
-				</div>
+				
 			</section>
 
 			<div>
@@ -112,8 +107,53 @@
               
               
               <button type="submit" class="btn btn-warning btn-register" id="register">Sell to Seller</button>
-          </div>
-    </section>
+          </div> 
+    </section> -->
+	<section class="form-section">
+
+		<!---------- CONTAINER CONTAINER ----------------->
+		<div class="content-container">
+		<h2 class = "page-heading">Sell Product to Seller</h2>
+		<p>Manufacturer can sell the products to the seller here.</p>
+		<div class="container-fluid">
+			<center>
+				<div id="qr-reader" style="width:300px"></div>
+				<div id="qr-reader-results"></div>
+			</center>
+		</div>
+		
+		<!-----FORM ------->
+		<div class="form-container">
+
+		  <form action="/action_page.php">
+			<div class="row">
+			  <div class="col-25">
+				<label for="productSN">Product SN:</label>
+			  </div>
+			  <div class="col-75">
+				<input disabled class="form-control" id="productSN" name="productSN" type="text" />
+			  </div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+					<label for="sellerCode">Seller Code</label>
+				</div>
+				<div class="col-75">
+					<input  class="form-control" id="sellerCode" name="sellerCode" type="text" />
+				</div>
+			  </div>
+			  <div class="clear" >&nbsp;</div>
+			<div align="center">
+				<button type="submit" class="btn btn-warning btn-register" id="register">Sell to Seller</button>
+			</div>  
+		  </form>
+		  </div>
+		<!------------- END FORM ----------------->
+		  
+		 <!------------- END CONTENT-CONTAINER ----------------------->
+		</div>
+		 <!----------------------------------------------------------->
+		</section>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/popper.js"></script>
