@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/qr_code_box.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/manufacturer.css">
 
 	</head>
 	<body>
@@ -33,7 +37,7 @@
 				</div>
 			</div>
 		</div> -->
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container-fluid">
 	    
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,16 +52,31 @@
 	        </ul>
 	      </div>
 	    </div>
+	  </nav> -->
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container-fluid">
+	    
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+	        	<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	        	<li class="nav-item "><a href="addProduct.html" class="nav-link active">Add Product</a></li>
+				<li class="nav-item "><a href="addSeller.html" class="nav-link">Add Seller</a></li>
+
+	          	<li class="nav-item"><a href="sellProductManufacturer.html" class="nav-link">Sell Product To Seller</a></li>
+				  <li class="nav-item"><a href="querySeller.html" class="nav-link">Query Seller</a></li>
+
+	        </ul>
+	      </div>
+	    </div>
 	  </nav>
     <!-- END nav -->
 
 	</section>
-    <section>
-        <div class="container">
-            <h2>Add Product</h2>
-
-
-
+<section class="form-section">
+<!-- 
 			<div class="matrix">
 				<table width="100%">
 					<tr width="100%">
@@ -109,13 +128,75 @@
 				<button type="submit" class="btn btn-warning btn-register" id="register" onclick="fetchQR()">Add the Product</button>
 			  </div>  
 			  <br></br>
-          </div>
-    </section>
+          </div> -->
+
+<!---------- CONTAINER CONTAINER ----------------->
+<div class="content-container">
+<h2 class = "page-heading">Add Product</h2>
+<p>Manufacturer can add the required products here.</p>
+  
+
+<!-----FORM ------->
+<div class="form-container">
+  <form action="/action_page.php">
+    <div class="row">
+      <div class="col-25">
+        <label for="manufacturerID">Manufacturer ID</label>
+      </div>
+      <div class="col-75">
+        <input  class="form-control" id="manufacturerID" name="Manufacturer ID" type="text"  />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="name">Product Name</label>
+      </div>
+      <div class="col-75">
+        <input class="form-control" id="productName" name="productName" type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+		<label for="productSN">Product SN:</label>
+      </div>
+      <div class="col-75">
+		<input  class="form-control" id="productSN" name="productSN" type="text" />
+    </div>
+    </div>
+	<div class="row">
+		<div class="col-25">
+			<label for="name">Product Brand</label>
+		</div>
+		<div class="col-75">
+			<input class="form-control" id="productBrand" name="productBrand" type="text" />
+	  </div>
+	  </div>
+	  <div class="row">
+		<div class="col-25">
+			<label for="productPrice">Product Price</label>
+		</div>
+		<div class="col-75">
+			<input  class="form-control" id="productPrice" name="productPrice" type="text" />
+	  </div>
+	  </div>
+	  <div class="clear" >&nbsp;</div>
+	<div align="center">
+		<button type="submit" class="btn btn-warning btn-register" id="register" onclick="fetchQR()">Add the Product</button>
+	</div>  
+  </form>
+  </div>
+<!------------- END FORM ----------------->
+  
+ <!------------- END CONTENT-CONTAINER ----------------------->
+</div>
+ <!----------------------------------------------------------->
+</section>
+
 
 <!-- <br></br>	 -->
 	<div class="qr-code">
 		<div align="center">
-			<img align="center" hidden id="imgQR" src="" alt="qr-code" >
+			<img align="center"  id="imgQR" src="" alt="qr-code" >
 		</div>
 		<br></br>
 		<div align="center">
