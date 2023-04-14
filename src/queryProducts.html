@@ -7,6 +7,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/seller.css">
 
 	</head>
 	<body>
@@ -32,9 +33,8 @@
 				</div>
 			</div>
 		</div> -->
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container-fluid">
-	    
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="fa fa-bars"></span> Menu
 	      </button>
@@ -47,6 +47,21 @@
 	        </ul>
 	      </div>
 	    </div>
+	  </nav> -->
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container-fluid">
+	    
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+	        	<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	        	<li class="nav-item"><a href="sellProductSeller.html" class="nav-link">Sell Product To Consumer</a></li>
+            <li class="nav-item"><a href="queryProducts.html" class="nav-link">Products For sale</a></li>
+	        </ul>
+	      </div>
+	    </div>
 	  </nav>
     <!-- END nav -->
 
@@ -55,7 +70,7 @@
 
 	<section>
         <div class="container">
-            <h2>Prodcuts for sale with the seller</h2>
+            <h2 class="page-heading">Prodcuts For Sale With Seller</h2>
               
               <div class="form-group">
                 <label for="name">Seller Code</label>
@@ -70,10 +85,10 @@
 
 
     <section>
-        <div class="container">
-            <h2>Product Details</h2>
-            <table class="table">
-                <thead>
+        <div class="container table-responsive py-5">
+            <h2 class="page-heading">Product Details</h2>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <th>Product ID</th>
                         <th>Product Serial Number</th>

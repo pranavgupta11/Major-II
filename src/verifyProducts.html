@@ -7,6 +7,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/consumer.css">
 
 	</head>
 	<body>
@@ -32,7 +33,7 @@
 				</div>
 			</div>
 		</div> -->
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container-fluid">
 	    
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,13 +48,28 @@
 	        </ul>
 	      </div>
 	    </div>
+	  </nav> -->
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container-fluid">
+	    
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+	        	<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	        	<li class="nav-item"><a href="consumerPurchaseHistory.html" class="nav-link">Consumer Purchase History</a></li>
+            <li class="nav-item"><a href="verifyProducts.html" class="nav-link">Product Verification</a></li>
+	        </ul>
+	      </div>
+	    </div>
 	  </nav>
     <!-- END nav -->
 	
-	<section>
-        <div class="container">
-            <h2>Verify Products</h2>
-              
+	<section class="form-section">
+        <div class="content-container">
+            <h2 class="page-heading">Verify Products</h2>
+			<p>Consumer can verify the products here.</p>  
 			<section>
 				<div class="container-fluid">
 					<center>
@@ -63,7 +79,7 @@
 				</div>
 			</section>
 			  
-              <div class="form-group">
+              <!-- <div class="form-group">
 				<label for="productSN">Product SN:</label>
                 <input disabled type="text" class="form-control" id="productSN" placeholder="Enter Product SN" name="productSN">
                 
@@ -71,17 +87,47 @@
                 <input type="text" class="form-control" id="consumerCode" placeholder="Enter Consumer Code" name="consumerCode">
               </div>
               
-              <button type="submit" class="btn btn-warning btn-register" id="register">Get Product Status</button>
-          </div>
+              <button type="submit" class="btn btn-outline-dark btn-register" id="register">Get Product Status</button>
+          </div> -->
+		  <!-----FORM ------->
+		  <div class="form-container">
+			<form action="/action_page.php">
+			  <div class="row">
+				<div class="col-25">
+					<label for="productSN">Product SN:</label>
+				</div>
+				<div class="col-75">
+					<input disabled type="text" class="form-control" id="productSN" placeholder="Enter Product SN" name="productSN">
+				</div>
+			  </div>
+			  <div class="row">
+				<div class="col-25">
+					<label for="consumerCode">Consumer Code</label>
+					
+				</div>
+				<div class="col-75">
+					<input type="text" class="form-control" id="consumerCode" placeholder="Enter Consumer Code" name="consumerCode">
+				</div>
+			  </div>
+			  <div class="clear">&nbsp;</div>
+			  <div align="center">
+				<button type="submit" class="btn btn-dark btn-block btn-register" id="register">Get Product Status</button>
+			  </div>
+			</form>
+		  </div>
+		  <!------------- END FORM ----------------->
+  
+		  <!------------- END CONTENT-CONTAINER ----------------------->
+		</div>
     </section>
 
 
 	<br/>
     <section>
-        <div class="container">
-            <h2>Is the product sold to cunsumer is fake or not?</h2>
-            <table class="table">
-                <thead>
+        <div class="container table-responsive py-5">
+            <h2 class="page-heading">Is the Product sold to Consumer Fake or Not ?</h2>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <th>Product Verification Result</th>
                     </tr>
