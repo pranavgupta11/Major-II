@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
-  <head>
-  	<title>Fake Product Identification</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<head>
+	<title>Fake Product Identification</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
@@ -11,8 +12,96 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/manufacturer.css">
-	</head>
-	<body>
+	<style>
+		body {
+			/* margin: 0; */
+			/* padding: 0; */
+			/* width: 100%; */
+			/* background:  #0081bb; */
+			/* background-image: linear-gradient(-45deg, #b2c6e7, #0081bb); */
+			/* display: flex; */
+			justify-content: center;
+			overflow: hidden;
+			/* height: 100%; */
+		}
+
+		.mobile-wrapper {
+			width: 360px;
+			height: 740px;
+			background-color: #ececec;
+			background-image: linear-gradient(-45deg, #ececec, #ffffff);
+
+			border: 12px solid #333;
+			border-radius: 36px;
+			position: relative;
+			overflow: hidden;
+			margin: 20px 0;
+			
+		}
+
+		.mobile-wrapper:before {
+			content: "";
+			width: 175px;
+			height: 25px;
+			background: #333;
+			border-bottom-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translatex(-50%);
+			z-index: 1000;
+		}
+
+		.d-flex {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		.flex-column {
+			flex-direction: column;
+		}
+
+		.loader-wrapper {
+			height: 100%;
+			width: auto;
+			padding: 0 25px;
+			font-family: "Roboto", sans-serif;
+			line-height: 1.4;
+			margin: 0 auto;
+		}
+
+		.loader-wrapper.dark {
+			background-color: #1b1b1b;
+			color: #ececec;
+			/* blue : #0081bb */
+			/* secondary : #212121 */
+			/* form-color : #5c5c5c */
+		}
+
+		.version {
+			text-align: center;
+		}
+
+		.version p {
+			margin-top: 0 !important;
+		}
+
+		.colaborate {
+			padding: 16px 0 30px 0;
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		.colaborate img {
+			height: 32px;
+		}
+	</style>
+</head>
+
+<body>
 	<section class="ftco-section">
 		<!-- <div class="container-fluid px-md-5">
 			<div class="row justify-content-between">
@@ -36,36 +125,51 @@
 			</div>
 		</div> -->
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container-fluid">
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="fa fa-bars"></span> Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav m-auto">
-	        	<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	        	<li class="nav-item"><a href="addProduct.html" class="nav-link">Add Product</a></li>
-				<li class="nav-item "><a href="addSeller.html" class="nav-link">Add Seller</a></li>
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+					aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="fa fa-bars"></span> Menu
+				</button>
+				<div class="collapse navbar-collapse" id="ftco-nav">
+					<ul class="navbar-nav m-auto">
+						<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="addProduct.html" class="nav-link">Add Product</a></li>
+						<li class="nav-item "><a href="addSeller.html" class="nav-link">Add Seller</a></li>
 
-	          	<li class="nav-item"><a href="sellProductManufacturer.html" class="nav-link">Sell Product To Seller</a></li>
-				  <li class="nav-item"><a href="querySeller.html" class="nav-link">Query Seller</a></li>
+						<li class="nav-item"><a href="sellProductManufacturer.html" class="nav-link">Sell Product To
+								Seller</a></li>
+						<li class="nav-item"><a href="querySeller.html" class="nav-link">Query Seller</a></li>
 
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- END nav -->
 
 	</section>
 
 	<section>
-		<div class="container">
-		  <h2>
-			Manufacturer
-		  </h2>
-		  <h3>
-			Go to navigation bar to perform operations.
-		  </h3>
-	  </section>
+		<div class="content-container">
+			<h2>
+				Manufacturer
+			</h2>
+			<p>
+				Go to navigation bar to perform operations.
+			</p>
+			<div class="mobile-wrapper">
+				<div class="loader-wrapper d-flex flex-column">
+					<div class="d-flex flex-column" style="flex-grow: 1; ">
+						<div class="logo">
+							<h2>Authenti Fi</h2>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		</div>
+	</section>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="js/popper.js"></script>
@@ -74,8 +178,5 @@
 	<script src="js/web3.min.js"></script>
 	<script src="js/truffle-contract.js"></script>
 </body>
+
 </html>
-
-
-
-
