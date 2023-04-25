@@ -8,7 +8,101 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/consumer.css">
+	<!-- <link rel="stylesheet" href="css/manufacturer.css"> -->
+  <style>
+		body {
+			/* margin: 0; */
+			/* padding: 0; */
+			/* width: 100%; */
+			/* background:  #0081bb; */
+			/* background-image: linear-gradient(-45deg, #b2c6e7, #0081bb); */
+			/* display: flex; */
+			justify-content: center;
+			overflow: hidden;
+			/* height: 100%; */
+		}
 
+		.mobile-wrapper {
+			width: 360px;
+			height: 740px;
+			background-color: #ececec;
+			background-image: linear-gradient(-45deg, #ececec, #ffffff);
+
+			border: 12px solid #333;
+			border-radius: 36px;
+			position: relative;
+			overflow: hidden;
+			margin: 20px 300px;
+			
+		}
+
+		.mobile-wrapper:before {
+			content: "";
+			width: 175px;
+			height: 25px;
+			background: #333;
+			border-bottom-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translatex(-50%);
+			z-index: 1000;
+			
+		}
+
+		.d-flex {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		.flex-column {
+			flex-direction: column;
+		}
+
+		.loader-wrapper {
+			height: 100%;
+			width: auto;
+			padding: 0 25px;
+			font-family: "Roboto", sans-serif;
+			line-height: 1.4;
+			margin: 0 auto;
+		}
+
+		.loader-wrapper.dark {
+			background-color: #1b1b1b;
+			color: #ececec;
+			/* blue : #0081bb */
+			/* secondary : #212121 */
+			/* form-color : #5c5c5c */
+		}
+
+		.version {
+			text-align: center;
+		}
+
+		.version p {
+			margin-top: 0 !important;
+		}
+
+		.colaborate {
+			padding: 16px 0 30px 0;
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		.colaborate img {
+			height: 32px;
+		}
+
+		.logo{
+			margin-top: -270px;
+		}
+
+		
+	</style>
 
 	</head>
 	<body>
@@ -51,13 +145,33 @@
 	  </nav>
 
     <section>
-      <div class="container">
-        <h2>
-          Consumer
-        </h2>
-        <h3>
-          Go to navigation bar to perform operations.
-        </h3>
+		<div class="content-container">
+			<div class="container">
+				<h2>
+					Consumer
+				</h2>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				</p>
+			</div>
+			
+			<!-- <p>
+				Go to navigation bar to perform operations.
+			</p> -->
+			
+		
+		<div class="mobile-wrapper">
+			<div class="loader-wrapper d-flex flex-column">
+				<div class="d-flex flex-column" style="flex-grow: 1; ">
+					<div class="logo">
+						<h2>Authenti Fi</h2>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
     </section>
     <!-- END nav -->
 
