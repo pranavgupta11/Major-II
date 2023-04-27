@@ -92,6 +92,7 @@ App = {
 
                 for(var k=0;k<result[6].length;k++){
                     sellerAddress[k]=web3.toAscii(result[6][k]);
+                    console.log(result[6][k])
                 }
                 
 

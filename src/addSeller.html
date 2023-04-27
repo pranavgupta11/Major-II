@@ -8,7 +8,44 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/manufacturer.css">
+	<style>
+		/* The message box is shown when the user clicks on the password field */
+		#message {
+		display:none;
+		background: #f1f1f1;
+		color: #000;
+		position: relative;
+		padding: 5px;
+		margin-top: 10px;
+		}
 
+		#message p {
+		/* padding: 10px 35px; */
+		font-size: 15px;
+		}
+
+		/* Add a green text color and a checkmark when the requirements are right */
+		.valid {
+		color: green;
+		}
+
+		.valid:before {
+		position: relative;
+		left: -5px;
+		content: "✓";
+		}
+
+		/* Add a red text color and an "x" icon when the requirements are wrong */
+		.invalid {
+		color: red;
+		}
+
+		.invalid:before {
+		position: relative;
+		left: -5px;
+		content: "✗";
+		}
+	</style>
 	</head>
 	<body>
 	<section class="ftco-section">
@@ -146,13 +183,13 @@
               <button type="submit" class="btn btn-warning btn-register" id="register">Add the Seller</button>
           </div> -->
 		  <div class="form-container">
-			<form action="/action_page.php">
+			<form action="/action_page.php" id="update_form"">
 			  <div class="row">
 				<div class="col-25">
 					<label for="seller_id">Seller Name </label>
 				</div>
 				<div class="col-75">
-				<input  class="form-control" id="SellerName" name="SellerName" type="text" />
+				<input  class="form-control" id="SellerName" name="SellerName" type="text" required/>
 				</div>
 			  </div>
 			  <div class="row">
@@ -169,15 +206,16 @@
 					<label for="username">Seller Code</label>
 				</div>
 				<div class="col-75">
-					<input  class="form-control" id="SellerCode" name="SellerCode" type="text" />
+					<input  class="form-control" id="SellerCode" name="SellerCode" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" maxlength="20"  />
+					<input type="checkbox" onclick="myFunction()">Show Password
 			  </div>
 			  </div>
 			  <div class="row">
 				  <div class="col-25">
-					<label for="name">Seller Phone Number</label>
+					<label for="name">Seller Phone No.</label>
 				  </div>
 				  <div class="col-75">
-					<input class="form-control" id="SellerPhoneNumber" name="SellerPhoneNumber" type="text" />
+					<input class="form-control" id="SellerPhoneNumber" name="SellerPhoneNumber" type="text" minlength="10" maxlength="10" />
 				</div>
 				</div>
 				<div class="row">
@@ -207,9 +245,16 @@
 
 				<div class="clear" >&nbsp;</div>
 			  <div align="center">
-				<button type="submit" class="btn btn-warning btn-register" id="register">Add the Seller</button>
+				<button type="submit" class="btn btn-warning btn-register" id="register" >Add the Seller</button>
 			  </div>  
 			</form>
+			<div id="message">
+				<h5>Seller Code must contain the following:</h5>
+				<p id="letter" class="invalid">lowercase letter</p>
+				<p id="capital" class="invalid">capital (uppercase) letter</p>
+				<p id="number" class="invalid">number</p>
+				<p id="length" class="invalid">Minimum 8 characters</b></p>
+			  </div>
 			</div>
 		  <!------------- END FORM ----------------->
 			
@@ -217,6 +262,74 @@
 		  </div>
     </section>
 
+	<script>
+		var myInput = document.getElementById("SellerCode");
+		var letter = document.getElementById("letter");
+		var capital = document.getElementById("capital");
+		var number = document.getElementById("number");
+		var length = document.getElementById("length");
+		
+		// When the user clicks on the password field, show the message box
+		myInput.onfocus = function() {
+		  document.getElementById("message").style.display = "block";
+		}
+		
+		// When the user clicks outside of the password field, hide the message box
+		myInput.onblur = function() {
+		  document.getElementById("message").style.display = "none";
+		}
+		
+		// When the user starts to type something inside the password field
+		myInput.onkeyup = function() {
+		  // Validate lowercase letters
+		  var lowerCaseLetters = /[a-z]/g;
+		  if(myInput.value.match(lowerCaseLetters)) {
+			letter.classList.remove("invalid");
+			letter.classList.add("valid");
+		  } else {
+			letter.classList.remove("valid");
+			letter.classList.add("invalid");
+		}
+		
+		  // Validate capital letters
+		  var upperCaseLetters = /[A-Z]/g;
+		  if(myInput.value.match(upperCaseLetters)) {
+			capital.classList.remove("invalid");
+			capital.classList.add("valid");
+		  } else {
+			capital.classList.remove("valid");
+			capital.classList.add("invalid");
+		  }
+		
+		  // Validate numbers
+		  var numbers = /[0-9]/g;
+		  if(myInput.value.match(numbers)) {
+			number.classList.remove("invalid");
+			number.classList.add("valid");
+		  } else {
+			number.classList.remove("valid");
+			number.classList.add("invalid");
+		  }
+		
+		  // Validate length
+		  if(myInput.value.length >= 8) {
+			length.classList.remove("invalid");
+			length.classList.add("valid");
+		  } else {
+			length.classList.remove("valid");
+			length.classList.add("invalid");
+		  }
+		}
+
+		function myFunction() {
+		var x = document.getElementById("SellerCode");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+		}
+		</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -224,5 +337,6 @@
   <script src="js/web3.min.js"></script>
   <script src="js/truffle-contract.js"></script>
   <script src="js/sellerApp.js"></script>
+</script>
   </body>
 </html>
