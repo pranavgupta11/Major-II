@@ -1,14 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
-contract product {
+contract productSecure {
 
     uint256 sellerCount;
     uint256 productCount;
-    address owner;
-    constructor(){
-        owner = msg.sender;
-    }
+    
 
     struct seller{
         uint256 sellerId; // automated
@@ -17,7 +14,7 @@ contract product {
         bytes32 sellerCode; // Password (GST(5)+Phone(4))
         uint256 sellerNum;
         bytes32 sellerManager;
-        address sellerAddress;
+        bytes32 sellerAddress;
     }
     mapping(uint=>seller) public sellers; // 0 -> sellers details
 
@@ -40,14 +37,10 @@ contract product {
     mapping(bytes32=>bytes32[]) public sellersWithManufacturer;
 
 
-    function viewOwner() public view returns(address){
-        return owner;
-    }
     //SELLER SECTION
 
     function addSeller(bytes32 _manufacturerId, bytes32 _sellerName, bytes32 _sellerBrand, bytes32 _sellerCode,
-    uint256 _sellerNum, bytes32 _sellerManager, address _sellerAddress) public{
-        require(msg.sender == viewOwner(), "Wrong Account selected");
+    uint256 _sellerNum, bytes32 _sellerManager, bytes32 _sellerAddress) public{
         sellers[sellerCount] = seller(sellerCount, _sellerName, _sellerBrand, _sellerCode,
         _sellerNum, _sellerManager, _sellerAddress);
         sellerCount++;
@@ -56,14 +49,14 @@ contract product {
     }
 
 
-    function viewSellers () public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory, address[] memory) {
+    function viewSellers () public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory, bytes32[] memory) {
         uint256[] memory ids = new uint256[](sellerCount);
         bytes32[] memory snames = new bytes32[](sellerCount);
         bytes32[] memory sbrands = new bytes32[](sellerCount);
         bytes32[] memory scodes = new bytes32[](sellerCount);
         uint256[] memory snums = new uint256[](sellerCount);
         bytes32[] memory smanagers = new bytes32[](sellerCount);
-        address[] memory saddress = new address[](sellerCount);
+        bytes32[] memory saddress = new bytes32[](sellerCount);
         
         for(uint i=0; i<sellerCount; i++){
             ids[i] = sellers[i].sellerId;
@@ -81,8 +74,6 @@ contract product {
 
     function addProduct(bytes32 _manufactuerID, bytes32 _productName, bytes32 _productSN, bytes32 _productBrand,
     uint256 _productPrice) public{
-        require(msg.sender == viewOwner(), "Wrong Account selected");
-        require(productMap[_productSN] <= 0, "Serial number already exists");
         productItems[productCount] = productItem(productCount, _productSN, _productName, _productBrand,
         _productPrice, "Available");
         productMap[_productSN] = productCount;
@@ -118,21 +109,10 @@ contract product {
 
     }
 
-    function sellerSellProduct(bytes32 _productSN, bytes32 _consumerCode, bytes32 _sellerCode) public{   
+    function sellerSellProduct(bytes32 _productSN, bytes32 _consumerCode) public{   
         bytes32 pStatus;
         uint256 i;
-        uint256 a;
-        uint256 j = 0;
-        uint256 b = 0;
-        bool sellerFound = false;
-        for (a = 0; a < sellerCount; a++) {
-            if (sellers[a].sellerCode == _sellerCode) {
-                b = a;
-                sellerFound = true;
-            }
-        }
-        require(sellerFound == true, "Seller does not exist in the ecosystem");
-        require(sellers[b].sellerAddress == msg.sender, "Wrong Account Selected");
+        uint256 j=0;
 
         if(productCount>0) {
             for(i=0;i<productCount;i++) {
@@ -181,7 +161,7 @@ contract product {
         return(pids, pSNs, pnames, pbrands, pprices, pstatus);
     }
 
-    function querySellersList (bytes32 _manufacturerCode) public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory, address[] memory) {
+    function querySellersList (bytes32 _manufacturerCode) public view returns(uint256[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint256[] memory, bytes32[] memory, bytes32[] memory) {
         bytes32[] memory sellerCodes = sellersWithManufacturer[_manufacturerCode];
         uint256 k=0;
         uint256[] memory ids = new uint256[](sellerCount);
@@ -190,7 +170,7 @@ contract product {
         bytes32[] memory scodes = new bytes32[](sellerCount);
         uint256[] memory snums = new uint256[](sellerCount);
         bytes32[] memory smanagers = new bytes32[](sellerCount);
-        address[] memory saddress = new address[](sellerCount);
+        bytes32[] memory saddress = new bytes32[](sellerCount);
         
         for(uint i=0; i<sellerCount; i++){
             for(uint j=0; j<sellerCodes.length; j++){
@@ -223,14 +203,12 @@ contract product {
     }
 
     //Verify
-    event printVerify(bytes32 _productSN,string message, bytes32 _consumerCode);
 
     function verifyProduct(bytes32 _productSN, bytes32 _consumerCode) public view returns(bool){
-        require(productsSold[_productSN] == _consumerCode, "Invalid Serial Number Or Consumer Code");
-        if (productsSold[_productSN] == _consumerCode) {
-            // emit printVerify(_productSN, "is Verified by ", _consumerCode);
+        if(productsSold[_productSN] == _consumerCode){
             return true;
-        } else {
+        }
+        else{
             return false;
         }
     }
